@@ -1,0 +1,17 @@
+{
+  "verbose": true,
+  "ignore": [
+    "*.test.js",
+    "node_modules",
+    "logs",
+    ".gitiignore"
+  ],
+  "extensions": [
+    ".js",
+    ".json",
+    ".html",
+    ".css",
+    ".ejs",
+    ".env"
+  ]
+}

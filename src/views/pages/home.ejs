@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title key="title">kTap | eBooks website</title>
+
+  <!-- bootstrap core css -->
+  <link href="/css/bootstrap.css" rel="stylesheet" />
+  <!-- font awesome style -->
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- form styles -->
+  <link href="/css/form.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/css/responsive.css" rel="stylesheet" />
+  <!-- pre-loader style -->
+  <link href="/css/loader.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Pre-loader of the page -->
+  <%- include('../components/pre-loader.ejs') %>
+
+    <!-- Scroll to top -->
+    <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out"
+      data-abc="true"></a>
+
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <div class="container">
+            <a class="navbar-brand mx-auto" href="index.html">
+              <img src="/images/logo.png" height="40" alt="logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_target"
+              aria-controls="navbar_target" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="navbar-toggler-icon fa fa-navicon" style="color:rgb(8, 8, 8);"></i>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar_target">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="books.html" key="books">Books</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="categories.html" key="categories">Categories</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="stat.html" key="stat">Statistics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html" key="contact">Contact</a>
+              </li>
+              <% 
+                let profile_or_login = ['Profile', 'Login'];
+              %>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html" key="auth" data-toggle="modal" data-target="#auth_modal"> 
+                  <% if (user) { %>
+                    <%- profile_or_login[0] %>
+                  <% } else { %>
+                    <%- profile_or_login[1] %> 
+                  <% } %>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="drop-lang" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-language"></i><span id="current_lang">English</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="drop-lang">
+                  <a class="dropdown-item" onclick="toggle_lang(this);" href="#"> Qaraqalpaq </a>
+                  <a class="dropdown-item" onclick="toggle_lang(this);" href="#"> Uzbek </a>
+                  <a class="dropdown-item" onclick="toggle_lang(this);" href="#"> Rus </a>
+                </div>
+              </li>
+            </ul>
+            <form action="/" class="dropdown search_form">
+              <input type="text" id="search_input" class="form-control form-control-sm" key="placeholder"
+                placeholder="Search here..." data-toggle="dropdown">
+              <div class="suggest">
+                <ul id="suggests" class="dropdown-menu dropdown-menu-s suggestion" role="menu"
+                  aria-labelledby="search_input">
+                  <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, libero fuga. Veniam ipsa quod et impedit nulla!</a></li>
+            <div class="dropdown-divider"></div> -->
+                  <li role="presentation" id="spinning">
+                    <div class="d-flex align-items-center spinner-wrapper">
+                      <span style="color: rgba(0, 0, 0, 0.521); font-style: italic; font-size: 0.6rem;">Sizga mos eng
+                        yaxshi kitoblar qidirilmoqda...</span>
+                      <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <button class="" type="submit">
+                <i class="fa fa-search spinner" aria-hidden="true"></i>
+              </button>
+            </form>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+    <div class="modal fade" id="auth_modal" tabindex="-1" role="dialog" aria-labelledby="auth_modal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body" style="padding: none !important;">
+
+            <!-- Login form -->
+            <div class="signin_form auth">
+              <form id="login_form" class="text-center border border-light">
+                <p class="h4 mb-4" style="color: #8a26ee;">Sign in</p>
+
+                <div id="login-modal_here"></div>
+
+                <input type="email" id="login_email" name="email" class="form-control mb-4" placeholder="Email">
+                <input type="password" id="login_password" name="password" class="form-control mb-4" placeholder="Password">
+
+                <div class="d-flex justify-content-around">
+                  <div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="remember_checkbox" class="custom-control-input" id="form_check-box">
+                      <label class="custom-control-label" for="form_check-box">Remember me</label>
+                    </div>
+                  </div>
+                  <div>
+                    <a href="">Forgot password?</a>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-block my-4" id="login_button">SIGN IN</button>
+
+                <p>Not a member?
+                  <a class="pointer" id="signup_modal-toggler">Sign up</a>
+                </p>
+
+              </form>
+            </div>
+
+
+            <!-- Sign up form -->
+            <div class="signup_form auth none">
+              <form id="register_form" class="text-center border border-light">
+
+                <p class="h4 mb-3" style="color: #8a26ee;">Sign up</p>
+
+                <div id="register-modal_here"></div>
+                
+                <div class="form-row mb-4">
+                  <div class="col">
+                    <!-- First name -->
+                    <input type="text" id="register_first_name" class="form-control" placeholder="First name">
+                  </div>
+                  <div class="col">
+                    <!-- Last name -->
+                    <input type="text" id="register_last_name" class="form-control" placeholder="Last name">
+                  </div>
+                </div>
+
+                <!-- E-mail -->
+                <input type="email" id="register_email" class="form-control mb-2" placeholder="E-mail">
+
+                <!-- Password -->
+                <input type="password" id="register_password" class="form-control" placeholder="Password"
+                  aria-describedby="form_password-help">
+                <small id="form_password-help" class="form-text text-muted mb-4">
+                  Password must be at least 6 characters
+                </small>
+
+                <!-- Phone number -->
+                <input type="text" id="register_phone_number" class="form-control" placeholder="Phone number"
+                  aria-describedby="form_phone-help" data-mask="+00 000 000 0000" data-mask-selectonfocus="true">
+
+                <!-- Sign up button -->
+                <button type="submit" class="btn btn-block my-2" id="register_button">SIGN UP</button>
+
+                <!-- Social register -->
+                <p>
+                  Have a account
+                  <a class="pointer" id="signin_modal-toggler">Login</a>
+                  <br />
+                  or sign up with:
+                </p>
+
+                <div class="info_social">
+                  <a href="#" class="mx-2" role="button"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+                  <a href="#" class="mx-2" role="button"><i class="fa fa-google" aria-hidden="true"></i></a>
+                  <a href="#" class="mx-2" role="button"><i class="fa fa-facebook-f" aria-hidden="true"></i></a>
+                  <a href="#" class="mx-2" role="button"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                </div>
+
+                <hr>
+              </form>
+            </div>
+
+
+
+
+
+
+
+          </div>
+          <!--<button data-dismiss="modal">Close</button>-->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Hero area -->
+    <%- include('shared/hero') %>
+      <!-- end hero area -->
+
+
+
+      <!-- catagory section -->
+      <%- include('shared/category') %>
+        <!-- end catagory section -->
+
+        <!-- about section -->
+        <%- include('shared/about') %>
+          <!-- end about section -->
+
+          <!-- client section -->
+          <!-- <section class="client_section layout_padding">
+  <div class="container ">
+  <div class="heading_container heading_center">
+  <h2>
+  What Says Customers
+  </h2>
+  <hr>
+  </div>
+  <div class="row">
+  <div class="col-md-6 mx-auto">
+  <div class="client_container ">
+  <div class="detail-box">
+    <p>
+      Editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by
+    </p>
+    <span>
+      <i class="fa fa-quote-left" aria-hidden="true"></i>
+    </span>
+  </div>
+  <div class="client_id">
+    <div class="img-box">
+      <img src="images/c1.jpg" alt="">
+    </div>
+    <div class="client_name">
+      <h5>
+        Jone Mark
+      </h5>
+      <h6>
+        Student
+      </h6>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="col-md-6 mx-auto">
+  <div class="client_container ">
+  <div class="detail-box">
+    <p>
+      Editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by
+    </p>
+    <span>
+      <i class="fa fa-quote-left" aria-hidden="true"></i>
+    </span>
+  </div>
+  <div class="client_id">
+    <div class="img-box">
+      <img src="images/c2.jpg" alt="">
+    </div>
+    <div class="client_name">
+      <h5>
+        Anna Crowe
+      </h5>
+      <h6>
+        Student
+      </h6>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="col-lg-6 mx-auto">
+  <div class="client_container ">
+  <div class="detail-box">
+    <p>
+      Editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by
+    </p>
+    <span>
+      <i class="fa fa-quote-left" aria-hidden="true"></i>
+    </span>
+  </div>
+  <div class="client_id">
+    <div class="img-box">
+      <img src="images/c3.jpg" alt="">
+    </div>
+    <div class="client_name">
+      <h5>
+        Hilley James
+      </h5>
+      <h6>
+        Student
+      </h6>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section> -->
+          <!-- end client section -->
+
+          <!-- blog section -->
+          <%- include('shared/blog') %>
+            <!-- end blog section -->
+
+            <!-- contact section -->
+            <%- include('shared/contact') %>
+              <!-- end contact section -->
+
+              <!-- wrapper info & footer -->
+              <div class="wrapper_info-footer">
+                <!-- info section -->
+
+                <section class="info_section layout_padding2">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-6 col-lg-3 info-col">
+                        <div class="info_detail">
+                          <h4 key="info_section-title">
+                            kTap - Electronical books
+                          </h4>
+                          <p key="info_section-body">
+                            Vitae aut explicabo fugit facere alias distinctio, exem commodi mollitia minusem dignissimos
+                            atque
+                            asperiores incidunt vel voluptate iste
+                          </p>
+                          <div class="info_social">
+                            <a href="">
+                              <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://t.me/BegzatKidirbaev">
+                              <i class="fa fa-telegram" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/kidirbaev">
+                              <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                              <i class="fa fa-instagram" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-3 info-col">
+                        <div class="info_contact">
+                          <h4 key="info_section-address">
+                            Address
+                          </h4>
+                          <div class="contact_link_box">
+                            <a href="">
+                              <i class="fa fa-map-marker" aria-hidden="true"></i>
+                              <span key="info_section-location">
+                                Location
+                              </span>
+                            </a>
+                            <a href="">
+                              <i class="fa fa-phone" aria-hidden="true"></i>
+                              <span>
+                                +998900656909
+                              </span>
+                            </a>
+                            <a href="">
+                              <i class="fa fa-envelope" aria-hidden="true"></i>
+                              <span>
+                                b.jumabayuli@gmail.com
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-3 info-col">
+                        <div class="info_contact">
+                          <h4 key="info_section-newsletter">
+                            Newsletter
+                          </h4>
+                          <form action="#">
+                            <input type="text" key="placeholder-email" placeholder="Enter email" />
+                            <button data-hover="CLICK, ME!" class="custom_btn" key="subscribe" type="submit">
+                              <span>SUBSCRIBE</span>
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-3 info-col">
+                        <div class="map_container">
+                          <div class="map">
+                            <div id="googleMap"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- end info section -->
+
+
+                <!-- footer section -->
+                <footer class="footer_section">
+                  <div class="container">
+                    <p key="info_section-copyright">
+                      &copy; <span id="displayYear"></span> Website created by
+                      <a href="https://xemis.uz/">Xemis Co.</a>
+                    </p>
+                  </div>
+                </footer>
+                <!-- footer section -->
+
+              </div>
+              <!-- end of info & footer -->
+
+
+
+
+              <!-- jQery -->
+              <script src="/js/jquery-3.4.1.min.js"></script>
+              <!-- Script for change language -->
+              <script src="/js/change-lang.js"></script>
+              <!-- Input masks -->
+              <script src="/js/jquery.mask.js"></script>
+              <!-- bootstrap js -->
+              <script src="/js/bootstrap.js"></script>
+              <!-- EventEmitter module -->
+              <script src="/js/helpers/EventEmitter.js"></script>
+              <!-- custom js -->
+              <script src="/js/custom.js"></script>
+              <!-- client validators -->
+              <script src="/js/client-validators.js"></script>
+              <!-- Google Map -->
+              <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+                </script>
+              <!-- End Google Map -->
+              <script>
+                $(document).ready(function() {
+                  $('#signup_modal-toggler').click(() => {
+                    $('.signin_form').fadeOut("slow", () => {
+                      $('.signup_form').fadeIn();
+                    });
+                  });
+                  $('#signin_modal-toggler').click(() => {
+                    $('.signup_form').fadeOut("slow", () => {
+                      $('.signin_form').fadeIn();
+                    });
+                  });
+                });
+              </script>
+</body>
+
+</html>

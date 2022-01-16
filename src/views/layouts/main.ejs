@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title key="title">kTap | eBooks website</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+  <!-- font awesome style -->
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- form styles -->
+  <link rel="stylesheet" href="/css/form.css">
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/css/responsive.css" rel="stylesheet" />
+  <!-- pre-loader style -->
+  <link rel="stylesheet" href="/css/loader.css">
+
+</head>
+
+<body>
+
+  <!-- Pre-loader of the page -->
+  <%- include('../components/pre-loader.ejs') %>
+
+    <!-- Scroll to top -->
+    <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out"
+      data-abc="true"></a>
+
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <div class="container">
+            <a class="navbar-brand mx-auto" href="index.html">
+              <img src="/images/logo.png" height="40" alt="logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="navbar-toggler-icon fa fa-navicon" style="color:rgb(8, 8, 8);"></i>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="books.html" key="books">Books</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="categories.html" key="categories">Categories</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="stat.html" key="stat">Statistics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html" key="contact">Contact</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="drop-lang" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-language"></i><span id="current_lang">English</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="drop-lang">
+                  <a class="dropdown-item" onclick="toggle_lang(this);" href="#"> Qaraqalpaq </a>
+                  <a class="dropdown-item" onclick="toggle_lang(this);" href="#"> Uzbek </a>
+                  <a class="dropdown-item" onclick="toggle_lang(this);" href="#"> Rus </a>
+                </div>
+              </li>
+            </ul>
+            <form action="/" class="dropdown search_form">
+              <input type="text" id="search_input" class="form-control form-control-sm" key="placeholder"
+                placeholder="Search here..." data-toggle="dropdown">
+              <div class="suggest">
+                <ul id="suggests" class="dropdown-menu dropdown-menu-s suggestion" role="menu"
+                  aria-labelledby="search_input">
+                  <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, libero fuga. Veniam ipsa quod et impedit nulla!</a></li>
+            <div class="dropdown-divider"></div> -->
+                  <li role="presentation" id="spinning">
+                    <div class="d-flex align-items-center spinner-wrapper">
+                      <span style="color: rgba(0, 0, 0, 0.521); font-style: italic; font-size: 0.6rem;">Sizga mos eng
+                        yaxshi kitoblar qidirilmoqda...</span>
+                      <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <button class="" type="submit">
+                <i class="fa fa-search spinner" aria-hidden="true"></i>
+              </button>
+            </form>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+    <!-- body of the page -->
+
+    <!-- wrapper info & footer -->
+    <div class="wrapper_info-footer">
+      <!-- info section -->
+
+      <section class="info_section layout_padding2">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-lg-3 info-col">
+              <div class="info_detail">
+                <h4 key="info_section-title">
+                  kTap - Electronical books
+                </h4>
+                <p key="info_section-body">
+                  Vitae aut explicabo fugit facere alias distinctio, exem commodi mollitia minusem dignissimos
+                  atque
+                  asperiores incidunt vel voluptate iste
+                </p>
+                <div class="info_social">
+                  <a href="">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                  </a>
+                  <a href="https://t.me/BegzatKidirbaev">
+                    <i class="fa fa-telegram" aria-hidden="true"></i>
+                  </a>
+                  <a href="https://linkedin.com/in/kidirbaev">
+                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 info-col">
+              <div class="info_contact">
+                <h4 key="info_section-address">
+                  Address
+                </h4>
+                <div class="contact_link_box">
+                  <a href="">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span key="info_section-location">
+                      Location
+                    </span>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <span>
+                      +998900656909
+                    </span>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <span>
+                      b.jumabayuli@gmail.com
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 info-col">
+              <div class="info_contact">
+                <h4 key="info_section-newsletter">
+                  Newsletter
+                </h4>
+                <form action="#">
+                  <input type="text" key="placeholder-email" placeholder="Enter email" />
+                  <button data-hover="CLICK, ME!" class="custom_btn" key="subscribe" type="submit">
+                    <span>SUBSCRIBE</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 info-col">
+              <div class="map_container">
+                <div class="map">
+                  <div id="googleMap"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- end info section -->
+
+
+      <!-- footer section -->
+      <footer class="footer_section">
+        <div class="container">
+          <p key="info_section-copyright">
+            &copy; <span id="displayYear"></span> Website created by
+            <a href="https://xemis.uz/">Xemis Co.</a>
+          </p>
+        </div>
+      </footer>
+      <!-- footer section -->
+
+    </div>
+    <!-- end of info & footer -->
+
+    <!-- jQery -->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <!-- Script for change language -->
+    <script src="/js/change-lang.js"></script>
+    <!-- Input masks -->
+    <script src="/js/jquery.mask.js"></script>
+    <!-- bootstrap js -->
+    <script src="/js/bootstrap.js"></script>
+    <!-- EventEmitter module -->
+    <script src="/js/helpers/EventEmitter.js"></script>
+    <!-- custom js -->
+    <script src="/js/custom.js"></script>
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+    </script>
+    <!-- End Google Map -->
+    <script>
+      $(document).ready(function () {
+        $('.date').mask('00/00/0000');
+        $('.phone_us').mask('(000) 000-0000');
+      });
+    </script>
+</body>
+
+</html>

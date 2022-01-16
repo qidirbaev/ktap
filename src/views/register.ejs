@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Registration Page</h1>
+
+  <!-- Sign Up form -->
+  <form id="register_form">
+    <p>
+      <label>Fist name:</label>
+      <input type="text" id="first_name" name="first_name" value="Begzat">
+    </p>
+    <p>
+      <label>Last name:</label>
+      <input type="text" id="last_name" name="last_name" value="Kidirbaev">
+    </p>
+    <p>
+      <label>Email:</label>
+      <input type="text" id="email" name="email" value="qidirbaevbegzat@gmail.com">
+    </p>
+    <p>
+      <label>Password:</label>
+      <input type="password" id="password" name="password" value="donermay">
+    </p>
+    <p>
+      <label>Phone number</label>
+      <input type="text" id="phone_number" name="phone_number" value="+99 893 206 0844">
+    </p>
+
+    <p>
+      <input type="submit" value="Register">
+    </p>
+
+  </form>
+
+  <div id="message"></div>
+
+  <script src="/jquery.min.js"></script>
+  <script>
+    $(document).ready(() => {
+      $("#register_form").submit(e => {
+        e.preventDefault();
+
+        const first_name = $("#first_name").val().trim();
+        const last_name = $("#last_name").val().trim();
+        const email = $("#email").val().trim();
+        const password = $("#password").val().trim();
+        const phone_number = $("#phone_number").val().trim();
+        phone_number[0] = "";
+        console.log(first_name, last_name, email, password, phone_number);
+
+        const base = "/auth/signup";
+        const query_data = `first_name=${first_name}&last_name=${last_name}&email=${email}&password=${password}&phone_number=${phone_number}`;
+
+        $.ajax({
+          url: `${base}?${query_data}`,
+          type: "GET",
+          success: data => {
+            console.log(data);
+            $("#message").html(data);
+          },
+          error: data => {
+            console.log(data);
+            $("#message").html(data);
+          }
+        })
+
+        // if (first_name == "" || last_name == "" || email == "" || password == "" || phone_number == "") {
+        //   $("#message").html("<p>Please fill all the fields</p>");
+        // } else {
+        //   $.ajax({
+        //     url: "/auth/register",
+        //     method: "POST",
+        //     data: {
+        //       first_name: first_name,
+        //       last_name: last_name,
+        //       email: email,
+        //       password: password,
+        //       phone_number: phone_number
+        //     },
+        //     success: data => {
+        //       const msg = (data.success) ? "<p>Registration Successful</p>" : "<p>Registration Failed</p>";
+        //       $("#message").html(msg);
+        //     }
+        //   });
+        // }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

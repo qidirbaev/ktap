@@ -1,0 +1,57 @@
+{
+    "head": {
+        "title": "kTap | Online books",
+        "books": "Books",
+        "categories": "Categories",
+        "stat": "Statistics",
+        "contact": "Conatct",
+        "form": {
+            "placeholder-attr": "Search here..."
+        }
+    },
+    "section": {
+        "slider": {
+            "slider_1": {
+                "slider-secondary-title_1": "Literature & Fiction?",   
+                "slider-title_1": "Butun Dunyo </br> Adabiyotining Durdonalari",
+                "slider-body_1": "Barcha zamonlar va barcha makonlar kitoblarining elektron versiyalarini mutlaqo bepul yuklab oling va kitoblar olamiga sayahot qiling))",
+                "slider-readmore": "Ko'proq..."
+            },
+            "slider_2": {
+                "slider-secondary-title_2": "Balki ilmiy kitoblardir?",
+                "slider-title_2": "Bizdagi kitoblar </br> Bilmasvoyni qiziqtiradi",
+                "slider-body_2": "Bu sayt XXII asrda yaratilganligidan sizning xabaringiz bormidi? Yo'q, unda zamondan orqada qolmasdan tezda kitoblar yuklashni boshlng",
+                "slider-readmore": "Ko'proq..."
+            },
+            "slider_3": {
+                "slider-secondary-title_3": "Yoki Shaxsiy Rivojlanish uchundir?",
+                "slider-title_3": "Kitoblarni hatto </br> Ilon Mask ham o'qigan",
+                "slider-body_3": "Yerdan tushib qolishni hohlaysizmi? Unda biz sizga yordam bera olamiz, shunchaki kitoblar saralashni boshlang, tezda.",
+                "slider-readmore": "Ko'proq..."
+            }
+        }
+    },
+    "contact_section": {
+        "contact_title": "Bog'lanish",
+        "contact_form": {
+            "placeholder_name-attr": "Ism",
+            "placeholder_email-attr": "Email",
+            "placeholder_phone-attr": "Telefon",
+            "placeholder_message-attr": "Xabar",
+            "send_request": "Yuborish"
+        }
+    },
+    "info_section": {
+        "info_section-title": "kTap - Bepul elektron kitoblar",
+        "info_section-body": "Bizda barcha kitoblarimizni elektron versiyalarini mutlaqo bepul yuklab oling va kitoblar olamiga sayahot qiling",
+        "info_section-email": "Email",
+        "info_section-address": "Manzil",
+        "info_section-location": "Tez toping",
+        "info_section-newsletter": "Yangiliklar",
+        "form": {
+            "placeholder-email-attr": "Email",
+            "subscribe": "Jo'natish"
+        },
+        "info_section-copyright": "<p> © <span id='displayYear'>2022</span> Websayt <a href='https://xemis.uz/'>Xemis Co.</a> tarafidan yaratildi</p>"
+    }
+}
