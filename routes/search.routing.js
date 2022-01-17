@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import search from '../controllers/search.js';
+import { fast_search } from '../controllers/search.js';
 
 const router = Router();
 
-router.get('/search/:query', search);
+router.get('/:query', fast_search);
 
 export default router;

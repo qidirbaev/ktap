@@ -100,53 +100,12 @@ import { debug } from '../utils/helpers/debug.js';
     // export const login = (req, res) => {
     //     return res.render('home');
     // };
+}
 
-    // export const social = (req, res) => {
-    //     const username = req.query?.first_name;
-    //     const password = req.query?.hash;
-
-    //     if (!req.query && !username && !password) {
-    //         res.status(400).json({ success: false, message: 'Barcha maydonlar to\'g\'ri to\'ldirilishi kerak' });
-    //     } else {
-    //         const result = UserSchema.validate({ username, password });
-    //         console.log('1')
-    //         hash_all_passwords(users, (err, db) => {
-    //             if (!err) {
-    //                 console.log('2')
-    //                 find_user_from_database(username, db, (err, user) => {
-    //                     if (!err && user && !result.error) {
-    //                         console.log('3')
-    //                         compare(password, user.password, (err, result) => {
-    //                             if (!err && result) {
-    //                                 console.log('4')
-    //                                 const token = jwt.sign({ _id: user.id }, JWT_PRIVATE_KEY, {
-    //                                     expiresIn: '1h'
-    //                                 });
-    //                                 logger.info('[SIGNIN] You are logged in!');
-    //                                 res.status(201).cookie('token', token, {
-    //                                     httpOnly: true,
-    //                                     expires: new Date(Date.now() + 60 * 60 * 1000),
-    //                                     secure: process.env.NODE_ENV === 'production'
-    //                                 })
-    //                                     .json({ success: true, message: 'Tizimga muvaffaqiyatli kirildi' })
-    //                             } else {
-    //                                 res.status(401).json({ success: false, message: 'Parol xato' });
-    //                             }
-    //                         });
-    //                     } else {
-    //                         console.log('5')
-    //                         res.status(401).json({ success: false, message: 'Parol yoki login no\'tog\'ri kiritilgan' });
-    //                     }
-    //                 });
-    //             } else {
-    //                 console.log('6')
-    //                 res.status(500).json({ success: false, message: 'Userlarni heshlashda xatolik yuz berdi' });
-    //             }
-    //         });
-    //         console.log('7')
-    //     }
-    // }
-
+// export const social = (req, res) => {
+    
+// }
+{
     // export const logout = (req, res) => {
     //     return res.clearCookie('token')
     //         .status(200)
@@ -168,7 +127,7 @@ export const signin = async (req, res) => {
         return Response(new ErrorFor('Find User'), req, res);
 
     debug(1, user.ok);
-    
+
     const decoded_password = await comparePromise(req.body.password, user.password);
 
     debug(2, decoded_password);
@@ -177,7 +136,7 @@ export const signin = async (req, res) => {
         return Response(new ErrorFor('Find User'), req, res);
 
     debug(3, !decoded_password, !user);
-        
+
     const token = jwt.sign({ _id: user._id }, JWT_PRIVATE_KEY, {
         // expire in 1 minute
         expiresIn: '1m'
@@ -195,12 +154,12 @@ export const signin = async (req, res) => {
     req.session.token = token;
 
     debug(6, req.session.token);
-    
+
     res.status(201)
         .json({ success: true, message: 'Foydalanuvchi muvaffaqiyatli login bo\'ldi', redirect: '/' });
 
     debug(7, req.session);
-        
+
     Response(new ErrorFor(), req, res);
 
 };
@@ -208,11 +167,11 @@ export const signin = async (req, res) => {
 export const signup = async (req, res) => {
 
     debug(0, req.body);
-    
+
     const val_res = UserSchema.validate(req.body);
 
     debug(1, val_res);
-    
+
     if (val_res.error)
         return Response(new ErrorFor('Validation'), req, res);
 
@@ -221,19 +180,19 @@ export const signup = async (req, res) => {
     const isExistUser = await findOnePromise(User, { email: req.body?.email });
 
     debug(3, isExistUser);
-    
+
     if (isExistUser.ok)
         return Response(new ErrorFor('Exist User'), req, res);
-        
+
     debug(4, isExistUser.ok);
 
     const hashv = await hashPromise(req.body.password, 10);
 
     debug(5, hashv);
-    
+
     if (!hashv.ok)
         return Response(new ErrorFor(), req, res)
-        
+
     debug(6, hashv.ok);
 
     const new_user = new User({
@@ -243,17 +202,17 @@ export const signup = async (req, res) => {
         password: hashv.hash,
         phone_number: req.body.phone_number.split(' ').join(''),
     });
-    
+
     debug(7, new_user);
 
     await new_user.save()
         .then(() => {
-            const token = jwt.sign({_id: new_user._id}, JWT_PRIVATE_KEY, {
+            const token = jwt.sign({ _id: new_user._id }, JWT_PRIVATE_KEY, {
                 expiresIn: '1m'
             });
 
             debug(8, token);
-                        
+
             logger.info('[SIGNUP] You are signed up & in!');
             req.session.user = {
                 first_name: new_user.first_name,
@@ -265,7 +224,7 @@ export const signup = async (req, res) => {
             req.session.token = token;
 
             debug(10, req.session.token);
-            
+
             res
                 .status(201)
                 .json({ success: true, message: SERVER_MESSAGES.uzb.USER_SIGNED_UP, redirect: '/' });
@@ -274,5 +233,29 @@ export const signup = async (req, res) => {
             console.log('Userni saqlashda xatolik: ', err);
             Response(new ErrorFor(), req, res);
         });
-        
+
+}
+
+export const reset = async (req, res) => {
+
+    debug(0, req.body);
+
+    const user = await findOnePromise(User, { email: req.body?.email });
+
+    debug(1, user);
+
+    if (!user.ok) 
+        Response(new ErrorFor('Find User'), req, res);
+    
+    debug(2, user);
+
+    const token = jwt.sign({ _id: new_user._id }, JWT_PRIVATE_KEY, {
+        expiresIn: '15m'
+    });
+
+    const resetLink = `/auth/reset-pass/${token}`;
+
+    res.status(201).send(`<a href='${resetLink}'>Reset Password</a>`);
+    
+    Response(new ErrorFor('Validation'), req, res);
 }

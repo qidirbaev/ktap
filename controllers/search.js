@@ -1,6 +1,6 @@
 import algolia from "../config/Algolia.js";
 
-export default async (req, res) => {
+export const fast_search = async (req, res) => {
     let search_result;
 
     if (req.cookies['X-Algolia-UserToken'] || req.cookies['X-Algolia-UserToken'] != undefined) {
@@ -31,3 +31,6 @@ export default async (req, res) => {
         });
     }
 }
+
+// indexed_search with MongoDB Aggregation
+

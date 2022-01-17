@@ -14,7 +14,7 @@ import { cpus } from 'os';
 import cluster from 'cluster';
 import logger from './utils/helpers/logger.js';
 // import { errorHandler } from './utils/helpers/ErrorHandler.js';
-// import search from './routes/search.routing.js';
+import search from './routes/search.routing.js';
 // import books from './routes/books.routing.js';
 // import categories from './routes/categories.routing.js';
 // import statistics from './routes/statistics.routing.js';
@@ -97,7 +97,7 @@ if (cluster.isPrimary) {
     // app.use('/categories', categories);
     // app.use('/statistics', statistics);
     // app.use('/contact', contact);
-    // app.use('/search', search);
+    app.use('/search', search);
 
     app.get('/', (req, res, next) => {
         next(err);
