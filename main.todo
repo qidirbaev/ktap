@@ -1,0 +1,20 @@
+### QILINISHI KERAK ###
+
+
+Databazaga data yuklash
+
+    1. [ ] Faylni databazaga qo'shish uchun API
+            - Yagona fayl uchun
+            - Fayllar to'plami uchun
+    2. [ ] Faylni databazadan olish uchun API
+    3. [ ] Databazadagi faylni UPDATE qilish uchun API
+    4. [ ] Databazadagi faylni DELETE qilish uchun API
+
+
+Web-Scraping orqali data to'plash
+
+    1. [ ] Puppeteer orqali datani Telegramdan chiqarib olish
+    2. [ ] Olingan data ustida amal bajarish
+            - Test uchun Arrayga saqlab ko'rish
+    3. [ ] O'zgartirilgan faylni databazaga yuklash
+    4. [ ] Faylni databazadan olish uchun API qurish

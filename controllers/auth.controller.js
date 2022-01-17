@@ -1,6 +1,4 @@
-// import { authenticate } from '../helpers/validators/authenticate.js';
 import jwt from 'jsonwebtoken';
-import Joi from 'joi';
 import { UserSchema } from '../models/Schemas/UserSchema.js';
 import { User } from '../models/Database/UserModel.js';
 import { SERVER_MESSAGES } from '../utils/constants/server-messages.js';
@@ -9,113 +7,6 @@ import { findOnePromise, comparePromise, hashPromise } from '../utils/helpers/CR
 import logger from '../utils/helpers/logger.js';
 import { ErrorFor, Response } from '../utils/helpers/ErrorHandler.js';
 import { debug } from '../utils/helpers/debug.js';
-
-{
-    // const find_user_from_database = (username, db, callback) => {
-    //     (username && db) ? db.find(u => {
-    //         if (u.username === username)
-    //             return callback(null, u);
-    //     }) : callback('Userni topishda xatolik yuz berdi', false);
-    // }
-
-    // // hash all passwords in database
-    // const hash_all_passwords = (db, callback) => {
-
-    //     if (!db)
-    //         return callback('Database bo\'sh', false);
-
-    //     let hashed_db = [];
-    //     db.map((user) => {
-    //         hash(user.password, 10, (err, hash) => {
-
-    //             hashed_db.push({
-    //                 id: user.id,
-    //                 username: user.username,
-    //                 password: hash
-    //             });
-
-    //             if (user.id === db.length)
-    //                 callback(null, hashed_db);
-
-    //         });
-    //     });
-    // };
-
-    // export const homer = async (req, res) => {
-    //     res.render('pages/home');
-    //     // res.end();
-    // }
-
-    // export const signup_get = async (req, res) => {
-    //     const result = await UserRegistrationSchema.validateAsync(req.query);
-    //     console.log(req.query);
-    //     const isValidUser = await UserRegistrationModel.find({
-    //         $or: [
-    //             { email: req.query.email },
-    //             { phone: req.query.phone_number }
-    //         ]
-    //     });
-
-    //     if (isValidUser.length > 0) {
-    //         res.status(400).json({ success: false, message: 'Bu email yoki telefon raqami mavjud' });
-    //     } else if (result.error) {
-    //         res.status(400).json({ success: false, message: SERVER_MESSAGES.uzb.VALIDATION_ERROR });
-    //     } else {
-    //         let user = new UserRegistrationModel(req.query);
-
-    //         hash(user.password, 10, (err, hash) => {
-    //             if (err) {
-    //                 res.status(500).json({ success: false, message: SERVER_MESSAGES.uzb.INTERNAL_SERVER_ERROR });
-    //             } else { user.password = hash; }
-    //         });
-    //         user.save()
-    //             .then(() => {
-    //                 const token = jwt.sign({ _id: user._id }, JWT_PRIVATE_KEY, {
-    //                     expiresIn: '1h'
-    //                 });
-    //                 logger.info('[SIGNUP] You are signed up & in!');
-    //                 res
-    //                     .status(201)
-    //                     .cookie('token', token, {
-    //                         httpOnly: true,
-    //                         expires: new Date(Date.now() + 60 * 60 * 1000),
-    //                         secure: process.env.NODE_ENV === 'production'
-    //                     })
-    //                     .json({ success: true, message: SERVER_MESSAGES.uzb.USER_SIGNED_UP });
-    //             })
-    //             .catch(err => {
-    //                 logger.error(err);
-    //                 res.status(500).json({ success: false, message: SERVER_MESSAGES.uzb.INTERNAL_SERVER_ERROR });
-    //             });
-    //     }
-
-    // }
-
-    // export const home = (req, res) => {
-    //     res.locals.username = req.session.user;
-    //     res.render('login');
-    //     delete res.locals.username;
-    // };
-
-    // export const login = (req, res) => {
-    //     return res.render('home');
-    // };
-}
-
-// export const social = (req, res) => {
-    
-// }
-{
-    // export const logout = (req, res) => {
-    //     return res.clearCookie('token')
-    //         .status(200)
-    //         .json({ success: true, message: 'Muvafaqqiyatli logout bajarildi' })
-    // };
-
-    // export const restricted = (req, res) => {
-    //     res.send('Wahoo! restricted area, click to <a href="/auth/logout">logout</a>');
-    // };
-}
 
 export const signin = async (req, res) => {
 
@@ -236,26 +127,20 @@ export const signup = async (req, res) => {
 
 }
 
-export const reset = async (req, res) => {
+export const logout = (req, res) => {
+    console.log('[logout] req.session', req.session);
+    const token = req.session?.token;
 
-    debug(0, req.body);
+    if (token) {
+        try {
+            jwt.verify(token, JWT_PRIVATE_KEY);
+        } catch (ex) {
+            console.log('Token expired or not valid');
+            req.session.destroy();
+        }
+    }
 
-    const user = await findOnePromise(User, { email: req.body?.email });
+    console.log('[logout] req.session', req.session);
 
-    debug(1, user);
-
-    if (!user.ok) 
-        Response(new ErrorFor('Find User'), req, res);
-    
-    debug(2, user);
-
-    const token = jwt.sign({ _id: new_user._id }, JWT_PRIVATE_KEY, {
-        expiresIn: '15m'
-    });
-
-    const resetLink = `/auth/reset-pass/${token}`;
-
-    res.status(201).send(`<a href='${resetLink}'>Reset Password</a>`);
-    
-    Response(new ErrorFor('Validation'), req, res);
+    res.send('Logout');
 }

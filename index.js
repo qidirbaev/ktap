@@ -15,7 +15,7 @@ import cluster from 'cluster';
 import logger from './utils/helpers/logger.js';
 // import { errorHandler } from './utils/helpers/ErrorHandler.js';
 import search from './routes/search.routing.js';
-// import books from './routes/books.routing.js';
+import books from './routes/books.routing.js';
 // import categories from './routes/categories.routing.js';
 // import statistics from './routes/statistics.routing.js';
 // import contact from './routes/contact.routing.js';
@@ -93,7 +93,7 @@ if (cluster.isPrimary) {
 
     app.use('/', home);
     app.use('/auth', auth);
-    // app.use('/books', books);
+    app.use('/books', books);
     // app.use('/categories', categories);
     // app.use('/statistics', statistics);
     // app.use('/contact', contact);
