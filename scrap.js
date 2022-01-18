@@ -4,6 +4,7 @@ import prompt from 'prompt';
 const _phone_number = '+998900656909';
 const _2x_auth_password = 'Lpq.#81Ma.pl';
 const _user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0';
+const GroupName = 'VIRTUAL KITAPXANA';
 
 const clicker = async (page, selector) => {
     await page.waitForSelector(selector);
@@ -28,13 +29,25 @@ const clicker = async (page, selector) => {
     // page wait
     await page.waitForTimeout(15000);
 
-    // wait for the button to be clickable
-    await page.waitForSelector('#sign-in-password');
-    await page.type('#sign-in-password', _2x_auth_password);
-    await page.waitForTimeout(10000);
+    // wait for selector
+    await page.waitForSelector('.title');
     await page.evaluate(() => {
-        document.querySelector('.Button.default.primary.has-ripple').click();
+        const group_names = document.querySelectorAll('.title h3');
+        group_names.forEach(group => {
+            if (group.innerText.includes(GroupName)) {
+                group.click();
+            }
+        });
     });
+    // wait for the button to be clickable
+    // await page.waitForSelector('#sign-in-password');
+    // await page.type('#sign-in-password', _2x_auth_password);
+    // await page.waitForTimeout(10000);
+    // await page.evaluate(() => {
+    //     document.querySelector('.Button.default.primary.has-ripple').click();
+    // });
+
+
 
     // wait for button to load
     // clicker(page, '.Button.default.primary');
